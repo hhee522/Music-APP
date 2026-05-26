@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Serenity Sounds — Luna Whisper</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { serenity: { orange: '#FF9F55', bg: '#F9F7F4', card: '#F3EFEA' } },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+    .player-progress::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: #FF9F55; cursor: pointer; }
+    .player-progress::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: #FF9F55; border: none; }
+    .song-row:hover { background: rgba(255,255,255,0.85); }
+  </style>
+</head>
+<body class="bg-[#F9F7F4] text-gray-800 antialiased pb-28 md:pb-32">
+
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-[4.5rem] gap-3">
+        <a href="index.html" class="flex items-center gap-2 shrink-0">
+          <span class="w-9 h-9 rounded-full bg-[#FF9F55] flex items-center justify-center text-white text-sm"><i class="fas fa-wave-square"></i></span>
+          <span class="font-bold text-[#FF9F55] text-lg hidden sm:inline">Serenity Sounds</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6 ml-4">
+          <a href="index.html" class="flex items-center gap-1.5 text-gray-500 hover:text-[#FF9F55] text-sm font-medium"><i class="fas fa-compass text-xs"></i> Discover</a>
+          <a href="library.html" class="flex items-center gap-1.5 text-gray-500 hover:text-[#FF9F55] text-sm font-medium"><i class="fas fa-layer-group text-xs"></i> Library</a>
+        </nav>
+        <div class="flex-1 max-w-xl mx-2 md:mx-6">
+          <div class="relative">
+            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+            <input type="search" placeholder="Search songs, artists, or moods..." class="w-full pl-10 pr-4 py-2.5 rounded-full bg-gray-100 border-0 text-sm focus:ring-2 focus:ring-[#FF9F55]/30 outline-none" />
+          </div>
+        </div>
+        <div class="flex items-center gap-3 shrink-0 relative">
+          <button type="button" class="text-gray-500 hover:text-[#FF9F55] hidden sm:block"><i class="far fa-heart text-lg"></i></button>
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop" alt="User" class="w-9 h-9 rounded-full object-cover ring-2 ring-white shadow" />
+            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative min-h-[320px] md:min-h-[420px]">
+    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1600&q=80" alt="Luna Whisper" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-40 pb-8 md:pb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <div class="max-w-2xl">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF9F55] text-white text-xs font-semibold mb-3">
+          <i class="fas fa-check-circle"></i> 认证艺人
+        </span>
+        <p class="text-white/80 text-sm mb-2">1,204,500 月收听者</p>
+        <h1 class="text-3xl md:text-5xl font-bold text-white mb-3">Luna Whisper</h1>
+        <p class="text-white/85 text-sm md:text-base leading-relaxed max-w-xl">探索宁静的边界。Luna Whisper 将自然环境音与空灵的合成器相结合，为您疲惫的心灵带来最温柔的抚慰。</p>
+      </div>
+      <div class="flex items-center gap-3 shrink-0">
+        <button type="button" data-play-track="0" class="bg-[#FF9F55] hover:bg-[#e88f4a] text-white px-6 md:px-8 py-3 rounded-full font-semibold text-sm shadow-lg transition flex items-center gap-2">
+          <i class="fas fa-plus"></i> 订阅艺人
+        </button>
+        <button type="button" class="w-11 h-11 rounded-full bg-white/20 backdrop-blur text-white hover:bg-white/30 transition flex items-center justify-center" aria-label="Share">
+          <i class="fas fa-share-nodes"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
+    <div class="grid lg:grid-cols-3 gap-8 lg:gap-10">
+      <div class="lg:col-span-2 space-y-10">
+        <!-- Popular works -->
+        <section>
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold">热门作品</h2>
+            <a href="player.html" class="text-[#FF9F55] text-sm font-medium hover:underline">查看全部</a>
+          </div>
+          <div class="bg-white/70 rounded-2xl shadow-sm overflow-hidden">
+            <div class="hidden sm:grid grid-cols-[2rem_1fr_1fr_4rem_2rem] gap-4 px-4 py-3 text-xs text-gray-400 font-medium border-b border-gray-100">
+              <span>#</span><span>标题</span><span>专辑</span><span class="text-right"><i class="far fa-clock"></i></span><span></span>
+            </div>
+            <a href="player.html" data-play-track="0" class="song-row grid grid-cols-[2rem_1fr_auto] sm:grid-cols-[2rem_1fr_1fr_4rem_2rem] gap-3 sm:gap-4 items-center px-4 py-3 transition">
+              <span class="text-gray-400 text-sm">1</span>
+              <div class="flex items-center gap-3 min-w-0 col-span-1 sm:col-span-1">
+                <img src="https://images.unsplash.com/photo-1614732414448-7a0e4d4b0b8e?w=80&q=80" alt="" class="w-10 h-10 rounded-lg object-cover" />
+                <span class="font-medium truncate">Midnight Serenade</span>
+              </div>
+              <span class="text-gray-500 text-sm hidden sm:block truncate">Ethereal Echoes</span>
+              <span class="text-gray-400 text-sm text-right hidden sm:block">4:12</span>
+              <button type="button" class="text-gray-400 justify-self-end hidden sm:block" onclick="event.preventDefault()"><i class="fas fa-ellipsis"></i></button>
+            </a>
+            <a href="player.html" data-play-track="1" class="song-row grid grid-cols-[2rem_1fr_auto] sm:grid-cols-[2rem_1fr_1fr_4rem_2rem] gap-3 sm:gap-4 items-center px-4 py-3 transition">
+              <span class="text-gray-400 text-sm">2</span>
+              <div class="flex items-center gap-3 min-w-0">
+                <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=80&q=80" alt="" class="w-10 h-10 rounded-lg object-cover" />
+                <span class="font-medium truncate">Starlight Echo</span>
+              </div>
+              <span class="text-gray-500 text-sm hidden sm:block truncate">Cosmic Dreams</span>
+              <span class="text-gray-400 text-sm text-right hidden sm:block">5:18</span>
+              <span class="hidden sm:block"></span>
+            </a>
+            <a href="player.html" data-play-track="2" class="song-row grid grid-cols-[2rem_1fr_auto] sm:grid-cols-[2rem_1fr_1fr_4rem_2rem] gap-3 sm:gap-4 items-center px-4 py-3 transition">
+              <span class="text-gray-400 text-sm">3</span>
+              <div class="flex items-center gap-3 min-w-0">
+                <img src="https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=80&q=80" alt="" class="w-10 h-10 rounded-lg object-cover" />
+                <span class="font-medium truncate">Deep Ocean Breath</span>
+              </div>
+              <span class="text-gray-500 text-sm hidden sm:block truncate">Tidal Peace</span>
+              <span class="text-gray-400 text-sm text-right hidden sm:block">4:45</span>
+              <span class="hidden sm:block"></span>
+            </a>
+            <a href="player.html" data-play-track="3" class="song-row grid grid-cols-[2rem_1fr_auto] sm:grid-cols-[2rem_1fr_1fr_4rem_2rem] gap-3 sm:gap-4 items-center px-4 py-3 transition">
+              <span class="text-gray-400 text-sm">4</span>
+              <div class="flex items-center gap-3 min-w-0">
+                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=80&q=80" alt="" class="w-10 h-10 rounded-lg object-cover" />
+                <span class="font-medium truncate">Forest Whispers</span>
+              </div>
+              <span class="text-gray-500 text-sm hidden sm:block truncate">Canopy</span>
+              <span class="text-gray-400 text-sm text-right hidden sm:block">4:00</span>
+              <span class="hidden sm:block"></span>
+            </a>
+            <a href="player.html" data-play-track="4" class="song-row grid grid-cols-[2rem_1fr_auto] sm:grid-cols-[2rem_1fr_1fr_4rem_2rem] gap-3 sm:gap-4 items-center px-4 py-3 transition">
+              <span class="text-gray-400 text-sm">5</span>
+              <div class="flex items-center gap-3 min-w-0">
+                <img src="https://images.unsplash.com/photo-1515694346937-94d85d41ef68?w=80&q=80" alt="" class="w-10 h-10 rounded-lg object-cover" />
+                <span class="font-medium truncate">Rainy Window</span>
+              </div>
+              <span class="text-gray-500 text-sm hidden sm:block truncate">Soft Rain</span>
+              <span class="text-gray-400 text-sm text-right hidden sm:block">4:36</span>
+              <span class="hidden sm:block"></span>
+            </a>
+          </div>
+        </section>
+
+        <!-- Albums -->
+        <section>
+          <h2 class="text-xl font-bold mb-4">音乐专辑</h2>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            <a href="player.html" class="group">
+              <div class="aspect-square rounded-2xl overflow-hidden shadow-md mb-2">
+                <img src="https://images.unsplash.com/photo-1614732414448-7a0e4d4b0b8e?w=400&q=80" alt="Ethereal Echoes" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+              </div>
+              <p class="font-bold text-sm group-hover:text-[#FF9F55]">Ethereal Echoes</p>
+              <p class="text-gray-500 text-xs">2023 · 专辑</p>
+            </a>
+            <a href="player.html" class="group">
+              <div class="aspect-square rounded-2xl overflow-hidden shadow-md mb-2">
+                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80" alt="Nightfall Reflections" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+              </div>
+              <p class="font-bold text-sm group-hover:text-[#FF9F55]">Nightfall Reflections</p>
+              <p class="text-gray-500 text-xs">2022 · 专辑</p>
+            </a>
+            <a href="player.html" class="group">
+              <div class="aspect-square rounded-2xl overflow-hidden shadow-md mb-2">
+                <img src="https://picsum.photos/seed/luna3/400/400" alt="Moonlit Paths" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+              </div>
+              <p class="font-bold text-sm group-hover:text-[#FF9F55]">Moonlit Paths</p>
+              <p class="text-gray-500 text-xs">2021 · 专辑</p>
+            </a>
+            <a href="player.html" class="group hidden sm:block">
+              <div class="aspect-square rounded-2xl overflow-hidden shadow-md mb-2">
+                <img src="https://picsum.photos/seed/luna4/400/400" alt="Silent Dawn" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+              </div>
+              <p class="font-bold text-sm group-hover:text-[#FF9F55]">Silent Dawn</p>
+              <p class="text-gray-500 text-xs">2020 · EP</p>
+            </a>
+          </div>
+        </section>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="space-y-6">
+        <div class="bg-[#F3EFEA] rounded-2xl p-5 md:p-6 shadow-sm">
+          <h3 class="font-bold text-lg mb-3">关于艺人</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">Luna Whisper 是一位来自北欧的独立音乐人，专注于创作治愈系环境音乐。她的作品融合了自然采样、钢琴与合成器，曾在全球超过 50 个国家获得播放。她相信音乐是连接心灵与自然的桥梁。</p>
+          <div class="grid grid-cols-3 gap-2 mt-6 pt-6 border-t border-[#FF9F55]/15 text-center">
+            <div><p class="font-bold text-sm md:text-base">15.2M</p><p class="text-gray-500 text-[10px] md:text-xs">总播放量</p></div>
+            <div><p class="font-bold text-sm md:text-base">42</p><p class="text-gray-500 text-[10px] md:text-xs">发布曲目</p></div>
+            <div><p class="font-bold text-sm md:text-base">12</p><p class="text-gray-500 text-[10px] md:text-xs">获得奖项</p></div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 md:p-6 shadow-sm">
+          <h3 class="font-bold text-lg mb-4">近期动态 & 巡演</h3>
+          <ul class="space-y-4">
+            <li class="flex gap-4">
+              <div class="text-center shrink-0 w-12">
+                <p class="font-bold text-[#FF9F55] text-sm">10月</p>
+                <p class="text-xl font-bold leading-none">24</p>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                  <p class="font-semibold text-sm">上海 · 静谧空间</p>
+                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-[#FF9F55]/15 text-[#FF9F55] font-medium">即将售罄</span>
+                </div>
+                <p class="text-gray-500 text-xs mt-0.5">现场演出 20:00 开演</p>
+              </div>
+            </li>
+            <li class="flex gap-4">
+              <div class="text-center shrink-0 w-12">
+                <p class="font-bold text-[#FF9F55] text-sm">11月</p>
+                <p class="text-xl font-bold leading-none">08</p>
+              </div>
+              <div>
+                <p class="font-semibold text-sm">北京 · 中山音乐堂</p>
+                <p class="text-gray-500 text-xs mt-0.5">现场演出 19:30 开演</p>
+              </div>
+            </li>
+            <li class="flex gap-4">
+              <div class="text-center shrink-0 w-12">
+                <p class="font-bold text-[#FF9F55] text-sm">12月</p>
+                <p class="text-xl font-bold leading-none">15</p>
+              </div>
+              <div>
+                <p class="font-semibold text-sm">成都 · 城市音乐厅</p>
+                <p class="text-gray-500 text-xs mt-0.5">现场演出 20:00 开演</p>
+              </div>
+            </li>
+          </ul>
+          <button type="button" class="w-full mt-5 py-2.5 rounded-xl border-2 border-dashed border-gray-300 text-gray-500 text-sm hover:border-[#FF9F55] hover:text-[#FF9F55] transition">关注更多演出计划</button>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 md:p-6 shadow-sm">
+          <h3 class="font-bold text-lg mb-3">社交媒体</h3>
+          <div class="flex flex-wrap gap-4 text-sm">
+            <a href="#" class="text-gray-600 hover:text-[#FF9F55]">Instagram</a>
+            <a href="#" class="text-gray-600 hover:text-[#FF9F55]">Twitter</a>
+            <a href="#" class="text-gray-600 hover:text-[#FF9F55]">YouTube</a>
+            <a href="#" class="text-gray-600 hover:text-[#FF9F55]">Weibo</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="fixed bottom-0 left-0 right-0 z-50 bg-gray-900 text-white border-t border-gray-800">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 md:py-3">
+      <div class="flex flex-col lg:flex-row items-center gap-3 lg:gap-6">
+        <a href="player.html" class="flex items-center gap-3 w-full lg:w-64 shrink-0 min-w-0">
+          <img data-player-cover src="" alt="" class="w-12 h-12 rounded-lg object-cover" />
+          <div class="min-w-0 flex-1">
+            <p class="font-semibold text-sm truncate" data-player-title></p>
+            <p class="text-gray-400 text-xs truncate" data-player-artist></p>
+          </div>
+          <button type="button" class="text-gray-400 hover:text-[#FF9F55] p-1 hidden sm:block"><i class="far fa-heart"></i></button>
+        </a>
+        <div class="flex-1 w-full max-w-2xl">
+          <div class="flex items-center justify-center gap-3 md:gap-5 mb-1.5">
+            <button type="button" data-action="shuffle" data-player-shuffle class="text-gray-500 text-sm hidden sm:block"><i class="fas fa-shuffle"></i></button>
+            <button type="button" data-action="prev" class="text-gray-300 hover:text-white"><i class="fas fa-backward-step"></i></button>
+            <button type="button" data-action="play-pause" class="w-11 h-11 rounded-full bg-[#FF9F55] hover:bg-[#e88f4a] text-white flex items-center justify-center shadow-lg">
+              <i data-player-play-icon class="fas fa-pause text-sm ml-0.5"></i>
+            </button>
+            <button type="button" data-action="next" class="text-gray-300 hover:text-white"><i class="fas fa-forward-step"></i></button>
+            <button type="button" data-action="repeat" data-player-repeat class="text-gray-500 text-sm hidden sm:block"><i class="fas fa-repeat"></i></button>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-gray-400">
+            <span data-player-current class="w-9 text-right">1:45</span>
+            <div class="flex-1 relative h-1 bg-gray-700 rounded-full overflow-hidden">
+              <div data-player-progress class="absolute left-0 top-0 h-full bg-[#FF9F55] rounded-full" style="width:42%"></div>
+              <input type="range" data-player-progress-input class="player-progress absolute inset-0 w-full h-full opacity-0 cursor-pointer" min="0" max="100" value="42" />
+            </div>
+            <span data-player-duration class="w-9">4:12</span>
+          </div>
+        </div>
+        <div class="hidden md:flex items-center gap-3 w-44 shrink-0 justify-end">
+          <button type="button" class="text-gray-400 hover:text-white"><i class="fas fa-list-ul"></i></button>
+          <i class="fas fa-volume-high text-gray-400 text-sm"></i>
+          <input type="range" data-player-volume class="player-progress w-20 h-1 accent-[#FF9F55]" min="0" max="100" value="75" />
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/player.js"></script>
+</body>
+</html>
