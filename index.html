@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Serenity Sounds — Discover</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            serenity: { orange: '#FF9F55', bg: '#F9F7F4', card: '#F3EFEA' },
+          },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+    .player-progress::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: #FF9F55; cursor: pointer; }
+    .player-progress::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: #FF9F55; border: none; cursor: pointer; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-[#F9F7F4] text-gray-800 antialiased pb-28 md:pb-32">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-[4.5rem] gap-3">
+        <a href="index.html" class="flex items-center gap-2 shrink-0">
+          <span class="w-9 h-9 rounded-full bg-[#FF9F55] flex items-center justify-center text-white text-sm">
+            <i class="fas fa-wave-square"></i>
+          </span>
+          <span class="font-bold text-[#FF9F55] text-lg hidden sm:inline">Serenity Sounds</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6 ml-4">
+          <a href="index.html" class="flex flex-col items-center text-[#FF9F55] font-medium text-sm">
+            <span class="flex items-center gap-1.5"><i class="fas fa-compass text-xs"></i> Discover</span>
+            <span class="w-1 h-1 rounded-full bg-[#FF9F55] mt-1"></span>
+          </a>
+          <a href="library.html" class="flex items-center gap-1.5 text-gray-500 hover:text-[#FF9F55] text-sm font-medium transition">
+            <i class="fas fa-layer-group text-xs"></i> Library
+          </a>
+        </nav>
+        <div class="flex-1 max-w-xl mx-2 md:mx-6">
+          <div class="relative">
+            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+            <input type="search" placeholder="Search songs, artists, or moods..." class="w-full pl-10 pr-4 py-2.5 rounded-full bg-gray-100 border-0 text-sm focus:ring-2 focus:ring-[#FF9F55]/30 outline-none" />
+          </div>
+        </div>
+        <div class="flex items-center gap-3 shrink-0">
+          <button type="button" class="text-gray-500 hover:text-[#FF9F55] transition hidden sm:block" aria-label="Favorites"><i class="far fa-heart text-lg"></i></button>
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop" alt="User" class="w-9 h-9 rounded-full object-cover ring-2 ring-white shadow" />
+        </div>
+      </div>
+      <nav class="flex md:hidden justify-center gap-8 pb-3 border-t border-gray-50 pt-2">
+        <a href="index.html" class="text-[#FF9F55] font-medium text-sm">Discover</a>
+        <a href="library.html" class="text-gray-500 text-sm">Library</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 space-y-8 md:space-y-10">
+
+    <!-- Hero -->
+    <section class="relative rounded-3xl overflow-hidden shadow-lg min-h-[280px] md:min-h-[360px]">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80" alt="Sunset mountains" class="absolute inset-0 w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent"></div>
+      <div class="relative z-10 p-6 md:p-10 flex flex-col justify-center min-h-[280px] md:min-h-[360px] max-w-2xl">
+        <span class="inline-flex self-start px-3 py-1 rounded-full bg-white/20 backdrop-blur text-white text-xs font-medium mb-4">今日特别推荐</span>
+        <h1 class="text-2xl md:text-4xl font-bold text-white leading-tight mb-3">在音符中寻找属于你的安宁时刻</h1>
+        <p class="text-white/85 text-sm md:text-base mb-6 max-w-lg">治愈力的环境音与独立乐章，为您打造沉浸式的呼吸空间。</p>
+        <div class="flex flex-wrap gap-3">
+          <a href="player.html" data-play-track="0" class="inline-flex items-center gap-2 bg-[#FF9F55] hover:bg-[#e88f4a] text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-lg transition">
+            <i class="fas fa-play text-xs"></i> 立即开启治愈之旅
+          </a>
+          <button type="button" class="inline-flex items-center gap-2 bg-black/40 hover:bg-black/50 backdrop-blur text-white px-5 py-2.5 rounded-full text-sm font-medium transition">
+            <i class="fas fa-plus text-xs"></i> 收藏到歌单
+          </button>
+        </div>
+      </div>
+      <a href="player.html" class="absolute bottom-4 right-4 md:bottom-6 md:right-6 flex items-center gap-3 bg-black/50 backdrop-blur-md rounded-2xl p-3 pr-4 text-white hover:bg-black/60 transition max-w-[220px]">
+        <img data-player-cover src="https://images.unsplash.com/photo-1614732414448-7a0e4d4b0b8e?w=100&q=80" alt="" class="w-12 h-12 rounded-lg object-cover" />
+        <div class="min-w-0">
+          <p class="text-sm font-semibold truncate" data-player-title>Midnight Serenade</p>
+          <p class="text-xs text-white/70 truncate" data-player-artist>Luna Whisper</p>
+        </div>
+      </a>
+    </section>
+
+    <!-- Mood tags -->
+    <section class="flex gap-2 md:gap-3 overflow-x-auto hide-scrollbar pb-1">
+      <button type="button" class="shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 text-emerald-800 text-sm font-medium"><i class="fas fa-tree"></i> 森林深处</button>
+      <button type="button" class="shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-sky-100 text-sky-800 text-sm font-medium"><i class="fas fa-cloud-rain"></i> 雨中漫步</button>
+      <button type="button" class="shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 text-amber-800 text-sm font-medium"><i class="fas fa-spa"></i> 冥想时光</button>
+      <button type="button" class="shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-800 text-sm font-medium"><i class="fas fa-sun"></i> 午后阳光</button>
+      <button type="button" class="shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-blue-900 text-sm font-medium"><i class="fas fa-water"></i> 深海梦境</button>
+      <button type="button" class="shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-800 text-sm font-medium"><i class="fas fa-star"></i> 星空之下</button>
+    </section>
+
+    <!-- Recommended -->
+    <section>
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="text-lg md:text-xl font-bold flex items-center gap-2"><i class="fas fa-sparkles text-[#FF9F55]"></i> 为您推荐</h2>
+        <a href="library.html" class="text-[#FF9F55] text-sm font-medium hover:underline">查看全部 &gt;</a>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+        <article class="group cursor-pointer" data-play-track="3">
+          <div class="relative rounded-2xl overflow-hidden aspect-square shadow-md">
+            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+            <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-white/90 text-xs font-medium text-gray-700">静谧</span>
+          </div>
+          <h3 class="font-bold mt-3 text-sm md:text-base">晨间冥想：森林呼吸</h3>
+          <p class="text-gray-500 text-xs md:text-sm mt-0.5">鸟鸣与微风，唤醒一天的温柔</p>
+        </article>
+        <article class="group cursor-pointer" data-play-track="2">
+          <div class="relative rounded-2xl overflow-hidden aspect-square shadow-md">
+            <img src="https://images.unsplash.com/photo-1515694346937-94d85d41ef68?w=600&q=80" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+            <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-white/90 text-xs font-medium text-gray-700">失眠</span>
+          </div>
+          <h3 class="font-bold mt-3 text-sm md:text-base">雨夜安眠曲</h3>
+          <p class="text-gray-500 text-xs md:text-sm mt-0.5">细雨轻敲窗棂，伴你入梦</p>
+        </article>
+        <article class="group cursor-pointer" data-play-track="1">
+          <div class="relative rounded-2xl overflow-hidden aspect-square shadow-md">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+            <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-white/90 text-xs font-medium text-gray-700">放松</span>
+          </div>
+          <h3 class="font-bold mt-3 text-sm md:text-base">海边日落漫步</h3>
+          <p class="text-gray-500 text-xs md:text-sm mt-0.5">浪声与余晖，卸下所有疲惫</p>
+        </article>
+        <article class="group cursor-pointer" data-play-track="4">
+          <div class="relative rounded-2xl overflow-hidden aspect-square shadow-md">
+            <img src="https://images.unsplash.com/photo-1491002052546-bf38f186af56?w=600&q=80" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+            <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-white/90 text-xs font-medium text-gray-700">专注</span>
+          </div>
+          <h3 class="font-bold mt-3 text-sm md:text-base">冬日窗边阅读</h3>
+          <p class="text-gray-500 text-xs md:text-sm mt-0.5">炉火轻响，书香与音符共舞</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Daily magazine CTA -->
+    <section class="rounded-2xl md:rounded-3xl bg-gradient-to-r from-[#FF9F55]/15 via-[#FF9F55]/8 to-white p-5 md:p-6 flex flex-col sm:flex-row items-center gap-4 shadow-sm border border-[#FF9F55]/10">
+      <div class="w-14 h-14 rounded-2xl bg-[#FF9F55] flex items-center justify-center text-white shrink-0">
+        <i class="fas fa-music text-xl"></i>
+      </div>
+      <div class="flex-1 text-center sm:text-left">
+        <h3 class="font-bold text-base md:text-lg">为您定制的治愈日刊</h3>
+        <p class="text-gray-500 text-sm mt-1">每日早晨 8:00 更新，专属歌单与正念引导</p>
+      </div>
+      <button type="button" class="shrink-0 bg-[#FF9F55] hover:bg-[#e88f4a] text-white px-6 py-2.5 rounded-full text-sm font-semibold transition shadow-md">点击开始查看</button>
+    </section>
+
+    <!-- Latest singles -->
+    <section>
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="text-lg md:text-xl font-bold flex items-center gap-2"><i class="fas fa-wave-square text-[#FF9F55]"></i> 最新单曲</h2>
+        <a href="player.html" class="text-[#FF9F55] text-sm font-medium hover:underline">查看全部 &gt;</a>
+      </div>
+      <div class="grid md:grid-cols-2 gap-x-8 gap-y-1">
+        <a href="player.html" data-play-track="0" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/80 transition group">
+          <span class="text-gray-400 w-5 text-sm font-medium">1</span>
+          <img src="https://images.unsplash.com/photo-1614732414448-7a0e4d4b0b8e?w=80&q=80" alt="" class="w-12 h-12 rounded-lg object-cover shadow-sm" />
+          <div class="flex-1 min-w-0"><p class="font-semibold truncate group-hover:text-[#FF9F55]">Midnight Serenade</p><p class="text-gray-500 text-sm">Luna Whisper</p></div>
+          <span class="text-gray-400 text-sm hidden sm:inline">4:12</span>
+        </a>
+        <a href="player.html" data-play-track="1" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/80 transition group">
+          <span class="text-gray-400 w-5 text-sm font-medium">2</span>
+          <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=80&q=80" alt="" class="w-12 h-12 rounded-lg object-cover shadow-sm" />
+          <div class="flex-1 min-w-0"><p class="font-semibold truncate group-hover:text-[#FF9F55]">Starlight Echo</p><p class="text-gray-500 text-sm">Aurelia</p></div>
+          <span class="text-gray-400 text-sm hidden sm:inline">5:18</span>
+        </a>
+        <a href="player.html" data-play-track="2" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/80 transition group">
+          <span class="text-gray-400 w-5 text-sm font-medium">3</span>
+          <img src="https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=80&q=80" alt="" class="w-12 h-12 rounded-lg object-cover shadow-sm" />
+          <div class="flex-1 min-w-0"><p class="font-semibold truncate group-hover:text-[#FF9F55]">Deep Ocean Breath</p><p class="text-gray-500 text-sm">Marina Calm</p></div>
+          <span class="text-gray-400 text-sm hidden sm:inline">4:45</span>
+        </a>
+        <a href="player.html" data-play-track="3" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/80 transition group">
+          <span class="text-gray-400 w-5 text-sm font-medium">4</span>
+          <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=80&q=80" alt="" class="w-12 h-12 rounded-lg object-cover shadow-sm" />
+          <div class="flex-1 min-w-0"><p class="font-semibold truncate group-hover:text-[#FF9F55]">Forest Whispers</p><p class="text-gray-500 text-sm">Green Haven</p></div>
+          <span class="text-gray-400 text-sm hidden sm:inline">4:00</span>
+        </a>
+        <a href="player.html" data-play-track="4" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/80 transition group">
+          <span class="text-gray-400 w-5 text-sm font-medium">5</span>
+          <img src="https://images.unsplash.com/photo-1515694346937-94d85d41ef68?w=80&q=80" alt="" class="w-12 h-12 rounded-lg object-cover shadow-sm" />
+          <div class="flex-1 min-w-0"><p class="font-semibold truncate group-hover:text-[#FF9F55]">Rainy Window</p><p class="text-gray-500 text-sm">Ambient Dreams</p></div>
+          <span class="text-gray-400 text-sm hidden sm:inline">4:36</span>
+        </a>
+        <a href="player.html" data-play-track="5" class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/80 transition group">
+          <span class="text-gray-400 w-5 text-sm font-medium">6</span>
+          <img src="https://picsum.photos/seed/breeze1/80/80" alt="" class="w-12 h-12 rounded-lg object-cover shadow-sm" />
+          <div class="flex-1 min-w-0"><p class="font-semibold truncate group-hover:text-[#FF9F55]">Relaxing Breeze</p><p class="text-gray-500 text-sm">Ambient Dreams</p></div>
+          <span class="text-gray-400 text-sm hidden sm:inline">5:00</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Popular artists -->
+    <section>
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="text-lg md:text-xl font-bold flex items-center gap-2"><i class="fas fa-user-music text-[#FF9F55]"></i> 热门艺人</h2>
+        <a href="artist.html" class="text-[#FF9F55] text-sm font-medium hover:underline">查看全部 &gt;</a>
+      </div>
+      <div class="grid grid-cols-3 sm:grid-cols-6 gap-4 md:gap-6">
+        <a href="artist.html" class="text-center group">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop" alt="Luna Whisper" class="w-16 h-16 md:w-20 md:h-20 rounded-full mx-auto object-cover shadow-md group-hover:ring-4 ring-[#FF9F55]/30 transition" />
+          <p class="font-semibold text-sm mt-2 group-hover:text-[#FF9F55]">Luna Whisper</p>
+          <p class="text-gray-500 text-xs">治愈钢琴</p>
+        </a>
+        <a href="artist.html" class="text-center group">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop" alt="Aurelia" class="w-16 h-16 md:w-20 md:h-20 rounded-full mx-auto object-cover shadow-md group-hover:ring-4 ring-[#FF9F55]/30 transition" />
+          <p class="font-semibold text-sm mt-2 group-hover:text-[#FF9F55]">Aurelia</p>
+          <p class="text-gray-500 text-xs">星空氛围</p>
+        </a>
+        <a href="artist.html" class="text-center group">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop" alt="Marina Calm" class="w-16 h-16 md:w-20 md:h-20 rounded-full mx-auto object-cover shadow-md group-hover:ring-4 ring-[#FF9F55]/30 transition" />
+          <p class="font-semibold text-sm mt-2 group-hover:text-[#FF9F55]">Marina Calm</p>
+          <p class="text-gray-500 text-xs">海洋冥想</p>
+        </a>
+        <a href="artist.html" class="text-center group">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop" alt="Green Haven" class="w-16 h-16 md:w-20 md:h-20 rounded-full mx-auto object-cover shadow-md group-hover:ring-4 ring-[#FF9F55]/30 transition" />
+          <p class="font-semibold text-sm mt-2 group-hover:text-[#FF9F55]">Green Haven</p>
+          <p class="text-gray-500 text-xs">自然之声</p>
+        </a>
+        <a href="artist.html" class="text-center group">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop" alt="Ambient Dreams" class="w-16 h-16 md:w-20 md:h-20 rounded-full mx-auto object-cover shadow-md group-hover:ring-4 ring-[#FF9F55]/30 transition" />
+          <p class="font-semibold text-sm mt-2 group-hover:text-[#FF9F55]">Ambient Dreams</p>
+          <p class="text-gray-500 text-xs">环境音乐</p>
+        </a>
+        <a href="artist.html" class="text-center group">
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&h=200&fit=crop" alt="Zen Flow" class="w-16 h-16 md:w-20 md:h-20 rounded-full mx-auto object-cover shadow-md group-hover:ring-4 ring-[#FF9F55]/30 transition" />
+          <p class="font-semibold text-sm mt-2 group-hover:text-[#FF9F55]">Zen Flow</p>
+          <p class="text-gray-500 text-xs">禅意节拍</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Community CTA -->
+    <section class="text-center py-10 md:py-14">
+      <p class="text-[#FF9F55] text-sm font-medium mb-2">心跳是更美的乐章</p>
+      <h2 class="text-2xl md:text-3xl font-bold mb-4">加入我们的静心社区</h2>
+      <p class="text-gray-500 max-w-xl mx-auto text-sm md:text-base leading-relaxed">超过 2 亿听众在这里找到内心的平静。分享你的治愈时刻，与志同道合的灵魂相遇。</p>
+      <a href="#" class="inline-block mt-6 text-[#FF9F55] font-semibold underline underline-offset-4 hover:text-[#e88f4a]">立即注册</a>
+    </section>
+  </main>
+
+  <!-- Global Player -->
+  <footer class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-100 shadow-[0_-4px_24px_rgba(0,0,0,0.08)]">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 md:py-3">
+      <div class="flex flex-col lg:flex-row items-center gap-3 lg:gap-6">
+        <a href="player.html" class="flex items-center gap-3 w-full lg:w-64 shrink-0 min-w-0">
+          <img data-player-cover src="https://images.unsplash.com/photo-1614732414448-7a0e4d4b0b8e?w=80&q=80" alt="" class="w-12 h-12 rounded-lg object-cover shadow-sm" />
+          <div class="min-w-0 flex-1">
+            <p class="font-semibold text-sm truncate" data-player-title>Midnight Serenade</p>
+            <p class="text-gray-500 text-xs truncate" data-player-artist>Luna Whisper</p>
+          </div>
+          <button type="button" class="text-gray-400 hover:text-[#FF9F55] p-1 hidden sm:block" aria-label="Like"><i class="far fa-heart"></i></button>
+        </a>
+        <div class="flex-1 w-full max-w-2xl">
+          <div class="flex items-center justify-center gap-3 md:gap-5 mb-1.5">
+            <button type="button" data-action="shuffle" data-player-shuffle class="text-gray-400 hover:text-[#FF9F55] text-sm hidden sm:block"><i class="fas fa-shuffle"></i></button>
+            <button type="button" data-action="prev" class="text-gray-600 hover:text-[#FF9F55]"><i class="fas fa-backward-step"></i></button>
+            <button type="button" data-action="play-pause" class="w-11 h-11 rounded-full bg-[#FF9F55] hover:bg-[#e88f4a] text-white flex items-center justify-center shadow-lg transition">
+              <i data-player-play-icon class="fas fa-pause text-sm ml-0.5"></i>
+            </button>
+            <button type="button" data-action="next" class="text-gray-600 hover:text-[#FF9F55]"><i class="fas fa-forward-step"></i></button>
+            <button type="button" data-action="repeat" data-player-repeat class="text-gray-400 hover:text-[#FF9F55] text-sm hidden sm:block"><i class="fas fa-repeat"></i></button>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-gray-500">
+            <span data-player-current class="w-9 text-right">1:02</span>
+            <div class="flex-1 relative h-1.5 bg-gray-200 rounded-full overflow-hidden">
+              <div data-player-progress class="absolute left-0 top-0 h-full bg-[#FF9F55] rounded-full transition-all" style="width: 24%"></div>
+              <input type="range" data-player-progress-input class="player-progress absolute inset-0 w-full h-full opacity-0 cursor-pointer" min="0" max="100" value="24" />
+            </div>
+            <span data-player-duration class="w-9">4:32</span>
+          </div>
+        </div>
+        <div class="hidden md:flex items-center gap-3 w-40 shrink-0 justify-end">
+          <button type="button" class="text-gray-500 hover:text-[#FF9F55]"><i class="fas fa-list-ul"></i></button>
+          <i class="fas fa-volume-high text-gray-500 text-sm"></i>
+          <input type="range" data-player-volume class="player-progress w-20 h-1 accent-[#FF9F55]" min="0" max="100" value="75" />
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/player.js"></script>
+</body>
+</html>

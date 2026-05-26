@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Serenity Sounds — Library</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { serenity: { orange: '#FF9F55', bg: '#F9F7F4', card: '#F3EFEA' } },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+    .player-progress::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: #FF9F55; cursor: pointer; }
+    .player-progress::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: #FF9F55; border: none; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .filter-tab.active { background: #FF9F55; color: white; }
+    .filter-tab:not(.active) { background: white; color: #6b7280; }
+    .filter-tab:not(.active):hover { background: #f3f4f6; }
+  </style>
+</head>
+<body class="bg-[#F9F7F4] text-gray-800 antialiased pb-28 md:pb-32">
+
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
+    <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-[4.5rem] gap-3">
+        <a href="index.html" class="flex items-center gap-2 shrink-0">
+          <span class="w-9 h-9 rounded-full bg-[#FF9F55] flex items-center justify-center text-white text-sm"><i class="fas fa-wave-square"></i></span>
+          <span class="font-bold text-[#FF9F55] text-lg hidden sm:inline">Serenity Sounds</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6 ml-4">
+          <a href="index.html" class="flex items-center gap-1.5 text-gray-500 hover:text-[#FF9F55] text-sm font-medium transition"><i class="fas fa-compass text-xs"></i> Discover</a>
+          <a href="library.html" class="flex flex-col items-center text-[#FF9F55] font-medium text-sm">
+            <span class="flex items-center gap-1.5"><i class="fas fa-layer-group text-xs"></i> Library</span>
+            <span class="w-1 h-1 rounded-full bg-[#FF9F55] mt-1"></span>
+          </a>
+        </nav>
+        <div class="flex-1 max-w-xl mx-2 md:mx-6">
+          <div class="relative">
+            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+            <input type="search" placeholder="Search songs, artists, or moods..." class="w-full pl-10 pr-4 py-2.5 rounded-full bg-gray-100 border-0 text-sm focus:ring-2 focus:ring-[#FF9F55]/30 outline-none" />
+          </div>
+        </div>
+        <div class="flex items-center gap-3 shrink-0">
+          <button type="button" class="text-gray-500 hover:text-[#FF9F55] hidden sm:block"><i class="far fa-heart text-lg"></i></button>
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop" alt="User" class="w-9 h-9 rounded-full object-cover ring-2 ring-white shadow" />
+        </div>
+      </div>
+      <nav class="flex md:hidden justify-center gap-8 pb-3 border-t border-gray-50 pt-2">
+        <a href="index.html" class="text-gray-500 text-sm">Discover</a>
+        <a href="library.html" class="text-[#FF9F55] font-medium text-sm">Library</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 flex flex-col xl:flex-row gap-6 xl:gap-8">
+    <main class="flex-1 min-w-0">
+      <div class="mb-6">
+        <h1 class="text-2xl md:text-3xl font-bold">我的音乐库</h1>
+        <p class="text-gray-500 text-sm mt-1">在这里管理你的所有收藏与心情歌单</p>
+      </div>
+
+      <div class="flex gap-2 overflow-x-auto hide-scrollbar pb-2 mb-6" id="filter-tabs">
+        <button type="button" class="filter-tab active shrink-0 px-4 py-2 rounded-full text-sm font-medium transition" data-filter="all">全部</button>
+        <button type="button" class="filter-tab shrink-0 px-4 py-2 rounded-full text-sm font-medium shadow-sm transition flex items-center gap-1.5" data-filter="commute"><i class="fas fa-car text-xs"></i> 通勤</button>
+        <button type="button" class="filter-tab shrink-0 px-4 py-2 rounded-full text-sm font-medium shadow-sm transition flex items-center gap-1.5" data-filter="sleep"><i class="fas fa-moon text-xs"></i> 睡前</button>
+        <button type="button" class="filter-tab shrink-0 px-4 py-2 rounded-full text-sm font-medium shadow-sm transition flex items-center gap-1.5" data-filter="heal"><i class="fas fa-heart text-xs"></i> 治愈</button>
+        <button type="button" class="filter-tab shrink-0 px-4 py-2 rounded-full text-sm font-medium shadow-sm transition flex items-center gap-1.5" data-filter="nature"><i class="fas fa-leaf text-xs"></i> 自然</button>
+        <button type="button" class="filter-tab shrink-0 px-4 py-2 rounded-full text-sm font-medium shadow-sm transition flex items-center gap-1.5" data-filter="focus"><i class="fas fa-brain text-xs"></i> 专注</button>
+      </div>
+
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="font-bold flex items-center gap-2"><i class="fas fa-play text-[#FF9F55] text-sm"></i> 全部歌单(5)</h2>
+        <button type="button" class="text-gray-500 text-sm flex items-center gap-1 hover:text-[#FF9F55]"><i class="far fa-clock"></i> 最近播放</button>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 mb-8" id="playlist-grid">
+        <button type="button" class="rounded-2xl border-2 border-dashed border-[#FF9F55]/40 bg-white/60 hover:bg-white flex flex-col items-center justify-center aspect-[4/3] min-h-[200px] transition group">
+          <span class="w-14 h-14 rounded-full bg-[#FF9F55]/15 flex items-center justify-center text-[#FF9F55] text-2xl group-hover:scale-110 transition"><i class="fas fa-plus"></i></span>
+          <span class="mt-3 font-medium text-gray-600">创建新歌单</span>
+        </button>
+        <article class="playlist-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition" data-category="sleep heal">
+          <div class="relative aspect-square">
+            <img src="https://images.unsplash.com/photo-1515694346937-94d85d41ef68?w=500&q=80" alt="雨夜冥想" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-4 relative">
+            <button type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-ellipsis-vertical"></i></button>
+            <h3 class="font-bold pr-8">雨夜冥想</h3>
+            <p class="text-gray-500 text-xs mt-1 line-clamp-1">细雨微声，伴你入眠</p>
+            <p class="text-gray-400 text-xs mt-2 flex items-center gap-1"><i class="fas fa-music text-[10px]"></i> 24 首曲目</p>
+          </div>
+        </article>
+        <article class="playlist-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition" data-category="heal focus">
+          <div class="relative aspect-square">
+            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=500&q=80" alt="午后咖啡" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-4 relative">
+            <button type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-ellipsis-vertical"></i></button>
+            <h3 class="font-bold pr-8">午后咖啡时光</h3>
+            <p class="text-gray-500 text-xs mt-1 line-clamp-1">慵懒爵士与轻音乐</p>
+            <p class="text-gray-400 text-xs mt-2 flex items-center gap-1"><i class="fas fa-music text-[10px]"></i> 18 首曲目</p>
+          </div>
+        </article>
+        <article class="playlist-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition" data-category="commute focus">
+          <div class="relative aspect-square">
+            <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=500&q=80" alt="星空漫游" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-4 relative">
+            <button type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-ellipsis-vertical"></i></button>
+            <h3 class="font-bold pr-8">星空漫游</h3>
+            <p class="text-gray-500 text-xs mt-1 line-clamp-1">宇宙深处的宁静回响</p>
+            <p class="text-gray-400 text-xs mt-2 flex items-center gap-1"><i class="fas fa-music text-[10px]"></i> 32 首曲目</p>
+          </div>
+        </article>
+        <article class="playlist-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition" data-category="nature heal">
+          <div class="relative aspect-square">
+            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500&q=80" alt="森林呼吸" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-4 relative">
+            <button type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-ellipsis-vertical"></i></button>
+            <h3 class="font-bold pr-8">森林呼吸</h3>
+            <p class="text-gray-500 text-xs mt-1 line-clamp-1">鸟鸣与树叶的沙沙声</p>
+            <p class="text-gray-400 text-xs mt-2 flex items-center gap-1"><i class="fas fa-music text-[10px]"></i> 21 首曲目</p>
+          </div>
+        </article>
+        <article class="playlist-card bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition" data-category="commute focus">
+          <div class="relative aspect-square">
+            <img src="https://picsum.photos/seed/commute/500/500" alt="通勤能量" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-4 relative">
+            <button type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-ellipsis-vertical"></i></button>
+            <h3 class="font-bold pr-8">通勤能量</h3>
+            <p class="text-gray-500 text-xs mt-1 line-clamp-1">清晨路上的温柔节拍</p>
+            <p class="text-gray-400 text-xs mt-2 flex items-center gap-1"><i class="fas fa-music text-[10px]"></i> 15 首曲目</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="bg-white rounded-2xl md:rounded-3xl shadow-md p-5 md:p-6 flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+        <div class="w-16 h-16 rounded-2xl bg-[#FF9F55]/15 flex items-center justify-center text-[#FF9F55] text-2xl shrink-0">
+          <i class="fas fa-heart"></i>
+        </div>
+        <div class="flex-1 text-center sm:text-left">
+          <h3 class="font-bold text-lg">我喜欢的音乐</h3>
+          <p class="text-gray-500 text-sm">已收藏 128 首曲目</p>
+        </div>
+        <button type="button" data-play-track="0" class="bg-[#FF9F55] hover:bg-[#e88f4a] text-white px-8 py-2.5 rounded-full font-semibold text-sm shadow-lg transition shrink-0">立即播放</button>
+      </div>
+    </main>
+
+    <!-- Queue sidebar -->
+    <aside class="xl:w-72 shrink-0 hidden xl:block">
+      <div class="bg-white rounded-2xl shadow-md p-4 sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto">
+        <h2 class="font-bold flex items-center gap-2 mb-4"><i class="fas fa-list text-[#FF9F55]"></i> Queue</h2>
+        <ul class="space-y-3" id="queue-list">
+          <li><a href="player.html" data-play-track="5" class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 transition group">
+            <img src="https://picsum.photos/seed/breeze1/80/80" alt="" class="w-11 h-11 rounded-lg object-cover" />
+            <div class="min-w-0"><p class="text-sm font-medium truncate group-hover:text-[#FF9F55]">Relaxing Breeze 1</p><p class="text-xs text-gray-500">Ambient Dreams</p></div>
+          </a></li>
+          <li><a href="player.html" data-play-track="5" class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 transition group">
+            <img src="https://picsum.photos/seed/breeze2/80/80" alt="" class="w-11 h-11 rounded-lg object-cover" />
+            <div class="min-w-0"><p class="text-sm font-medium truncate group-hover:text-[#FF9F55]">Relaxing Breeze 2</p><p class="text-xs text-gray-500">Ambient Dreams</p></div>
+          </a></li>
+          <li><a href="player.html" data-play-track="5" class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 transition group">
+            <img src="https://picsum.photos/seed/breeze3/80/80" alt="" class="w-11 h-11 rounded-lg object-cover" />
+            <div class="min-w-0"><p class="text-sm font-medium truncate group-hover:text-[#FF9F55]">Relaxing Breeze 3</p><p class="text-xs text-gray-500">Ambient Dreams</p></div>
+          </a></li>
+          <li><a href="player.html" data-play-track="4" class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 transition group">
+            <img src="https://images.unsplash.com/photo-1515694346937-94d85d41ef68?w=80&q=80" alt="" class="w-11 h-11 rounded-lg object-cover" />
+            <div class="min-w-0"><p class="text-sm font-medium truncate group-hover:text-[#FF9F55]">Relaxing Breeze 4</p><p class="text-xs text-gray-500">Ambient Dreams</p></div>
+          </a></li>
+          <li><a href="player.html" data-play-track="3" class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 transition group">
+            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=80&q=80" alt="" class="w-11 h-11 rounded-lg object-cover" />
+            <div class="min-w-0"><p class="text-sm font-medium truncate group-hover:text-[#FF9F55]">Relaxing Breeze 5</p><p class="text-xs text-gray-500">Ambient Dreams</p></div>
+          </a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-100 shadow-[0_-4px_24px_rgba(0,0,0,0.08)]">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 md:py-3">
+      <div class="flex flex-col lg:flex-row items-center gap-3 lg:gap-6">
+        <a href="player.html" class="flex items-center gap-3 w-full lg:w-64 shrink-0 min-w-0">
+          <img data-player-cover src="" alt="" class="w-12 h-12 rounded-lg object-cover shadow-sm" />
+          <div class="min-w-0 flex-1">
+            <p class="font-semibold text-sm truncate" data-player-title></p>
+            <p class="text-gray-500 text-xs truncate" data-player-artist></p>
+          </div>
+          <button type="button" class="text-gray-400 hover:text-[#FF9F55] p-1 hidden sm:block"><i class="far fa-heart"></i></button>
+        </a>
+        <div class="flex-1 w-full max-w-2xl">
+          <div class="flex items-center justify-center gap-3 md:gap-5 mb-1.5">
+            <button type="button" data-action="shuffle" data-player-shuffle class="text-gray-400 text-sm hidden sm:block"><i class="fas fa-shuffle"></i></button>
+            <button type="button" data-action="prev" class="text-gray-600 hover:text-[#FF9F55]"><i class="fas fa-backward-step"></i></button>
+            <button type="button" data-action="play-pause" class="w-11 h-11 rounded-full bg-[#FF9F55] hover:bg-[#e88f4a] text-white flex items-center justify-center shadow-lg">
+              <i data-player-play-icon class="fas fa-pause text-sm ml-0.5"></i>
+            </button>
+            <button type="button" data-action="next" class="text-gray-600 hover:text-[#FF9F55]"><i class="fas fa-forward-step"></i></button>
+            <button type="button" data-action="repeat" data-player-repeat class="text-gray-400 text-sm hidden sm:block"><i class="fas fa-repeat"></i></button>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-gray-500">
+            <span data-player-current class="w-9 text-right">0:00</span>
+            <div class="flex-1 relative h-1.5 bg-gray-200 rounded-full overflow-hidden">
+              <div data-player-progress class="absolute left-0 top-0 h-full bg-[#FF9F55] rounded-full" style="width:0%"></div>
+              <input type="range" data-player-progress-input class="player-progress absolute inset-0 w-full h-full opacity-0 cursor-pointer" min="0" max="100" value="0" />
+            </div>
+            <span data-player-duration class="w-9">0:00</span>
+          </div>
+        </div>
+        <div class="hidden md:flex items-center gap-3 w-40 shrink-0 justify-end">
+          <button type="button" class="text-gray-500 hover:text-[#FF9F55]"><i class="fas fa-list-ul"></i></button>
+          <i class="fas fa-volume-high text-gray-500 text-sm"></i>
+          <input type="range" data-player-volume class="player-progress w-20 h-1 accent-[#FF9F55]" min="0" max="100" value="75" />
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/player.js"></script>
+  <script>
+    document.getElementById('filter-tabs').addEventListener('click', function (e) {
+      var btn = e.target.closest('.filter-tab');
+      if (!btn) return;
+      document.querySelectorAll('.filter-tab').forEach(function (t) { t.classList.remove('active'); });
+      btn.classList.add('active');
+      var filter = btn.getAttribute('data-filter');
+      document.querySelectorAll('.playlist-card').forEach(function (card) {
+        if (filter === 'all') { card.style.display = ''; return; }
+        var cats = (card.getAttribute('data-category') || '').split(' ');
+        card.style.display = cats.indexOf(filter) >= 0 ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
